@@ -9,7 +9,8 @@ b = fir1(N,Wn); % FIR filter using window
 n = 0.15*randn(1,length(t)); % noise signal
 d = filter(b,1,x)+n; % Desired signal i.e Signal+noise
 mu = 0.009; % LMS step size
-ha  = adaptfilt.lms(32,mu);
+%ha  = adaptfilt.lms(32,mu);
+ha = dsp.LMSFilter(13,'StepSize',mu,'WeightsOutputPort',true);
 [y1,e1] = filter(ha,n,d);
 subplot(2,1,1)
 plot(1:length(t),d,'r');
@@ -18,5 +19,6 @@ xlabel('Time Index');
 ylabel('Signal Value');
 subplot(2,1,2)
 plot(1:length(t),e1);
+title('Output Signal');
 xlabel('Time Index');
 ylabel('Signal Value');
